@@ -6,28 +6,78 @@ abstract class Hewan {
 	abstract public function atraksi();
 }
 
-abstract class Fight {
-	protected $attackPower, $defencePower;
-
-	abstract public function serang();
-	abstract public function diserang();
+interface Fight {
+	public function serang();
+	public function diserang();
 }
 
-class Harimau Extends Hewan {
+class Harimau Extends Hewan implements Fight{
+	protected $attackPower, $defencePower;
+
 	public function __construct($nama, $darah=50, $jumlah_kaki=4, $keahlian="Berlari Cepat"){
 		$this->nama 		= $nama;
 		$this->darah		= $darah;
 		$this->jumlah_kaki 	= $jumlah_kaki;
 		$this->keahlian 	= $keahlian;
+		$this->attackPower  = 10;
+		$this->defencePower = 5;
 	}
 
 	public function atraksi(){
 		return $this->nama ." Sedang ".$this->keahlian;
 	}
+
+	public function serang(){
+		return $this->nama . " Sedang Meyerang Elang";
+	}
+
+	public function diserang(){
+
+	}
+
+	public function getInfoHewan(Harimau $harimau){
+		return "{$harimau->nama}, darah : {$harimau->darah}, kemampuan : {$harimau->keahlian}, Jenis Hewan : Harimau";
+	}
+}
+
+class Elang Extends Hewan implements Fight{
+	protected $attackPower, $defencePower;
+
+	public function __construct($nama, $darah=50, $jumlah_kaki=2, $keahlian="Terbang Tinggi"){
+		$this->nama 		= $nama;
+		$this->darah		= $darah;
+		$this->jumlah_kaki 	= $jumlah_kaki;
+		$this->keahlian 	= $keahlian;
+		$this->attackPower  = 7;
+		$this->defencePower = 8;
+	}
+
+	public function atraksi(){
+		return $this->nama ." Sedang ".$this->keahlian;
+	}
+
+	public function serang(){
+		return $this->nama . " Sedang Meyerang Harimau";
+	}
+
+	public function diserang(){
+
+	}
+
+	public function getInfoHewan(Elang $elang){
+		return "{$elang->nama}, darah : {$elang->darah}, kemampuan : {$elang->keahlian}, Jenis Hewan : Elang";
+	}
 }
 
 $harimau_1 = new Harimau("harimau_1");
-echo $harimau_1->serang();
-
+echo $harimau_1->atraksi()."<br>";
+echo $harimau_1->serang()."<br>";
+echo $harimau_1->getInfoHewan($harimau_1);
+echo "<hr>";
+$elang_1 = new Elang("elang_1");
+echo $elang_1->atraksi()."<br>";
+echo $elang_1->serang()."<br>";
+echo $elang_1->getInfoHewan($elang_1);
+?>
 
 
